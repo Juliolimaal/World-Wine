@@ -1,0 +1,19 @@
+name: IFPB Projects
+description:
+  World Wines é uma plataforma moderna dedicada ao universo dos vinhos, criada para proporcionar uma experiência completa e agradável aos amantes da bebida. O site apresenta informações sobre diferentes tipos de vinhos, suas características, origens e variedades, com uma interface moderna, intuitiva e visualmente atrativa, proporcionando uma navegação fluida e uma experiência agradável ao usuário.
+addresses:
+  preview: 
+  homepage: 
+  repository: https://github.com/Juliolimaal/World-Wine
+category:
+  type: subject  # ou 'subject', 'research', 'extension', 'open source'
+  subject: pw2-cstsi-jp
+  period: 2026.2   # necessário para projetos de disciplina
+tags:
+  - javascript
+  - springboot
+  - typescript
+owners:
+  - 20242370022  # matrícula/ID dos colaboradores
+  - 20242370031
+  - 20241370004
