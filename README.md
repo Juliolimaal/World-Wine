@@ -1,59 +1,73 @@
-# WorldWine
+# World Wine
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.26.
+Projeto da disciplina de Programação Web desenvolvido em Angular 21+.
 
-## Development server
+Esta etapa organiza somente as pastas e a divisão das tarefas. Nenhum componente visual, página, serviço ou integração foi implementado nesta reorganização.
 
-To start a local development server, run:
+## Estrutura de trabalho
 
-```bash
-ng serve
+```text
+src/
+  app/
+    components/
+      header/
+      footer/
+      hero/
+      product-card/
+      cart-sidebar/
+    pages/
+      home/
+      catalog/
+      cart/
+      checkout/
+      admin/
+    services/
+    models/
+    app.ts
+    app.html
+    app.scss
+    app.config.ts
+    app.routes.ts
+  main.ts
+  styles.scss
+public/
+  images/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+As pastas novas contêm somente arquivos `.gitkeep`, para que o Git consiga mantê-las vazias.
 
-## Code scaffolding
+## Divisão para três integrantes
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Pessoa 1 — Interface e navegação
+- Implementar Header, Footer, Hero e ProductCard.
+- Organizar as páginas Home e Catálogo.
+- Configurar rotas e templates das páginas.
+- Manter o visual do projeto original quando a implementação começar.
 
-```bash
-ng generate component component-name
-```
+**Requisitos principais:** Components, Templates e Rotas.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Pessoa 2 — Carrinho e checkout
+- Implementar CartSidebar, página Carrinho e página Checkout.
+- Usar Signals para o estado do carrinho.
+- Criar um serviço para gerenciar itens, quantidades e total.
+- Implementar os formulários do checkout.
 
-```bash
-ng generate --help
-```
+**Requisitos principais:** Signals, Services e Formulários.
 
-## Building
+### Pessoa 3 — Supabase e operações HTTP
+- Criar os modelos dos dados em `models/`.
+- Criar os serviços de acesso a dados em `services/`.
+- Integrar Supabase usando HttpClient.
+- Implementar GET, POST e DELETE.
+- Organizar a página Admin para demonstrar as operações, com acesso protegido.
 
-To build the project run:
+**Requisitos principais:** Services e HttpClient (GET, POST e DELETE) com Supabase.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Execução local
 
 ```bash
-ng e2e
+npm install
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A versão inicial do Angular foi preservada. As funcionalidades descritas acima são tarefas futuras.
