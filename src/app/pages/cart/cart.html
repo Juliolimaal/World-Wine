@@ -1,0 +1,7 @@
+<section class="cart"><h1>Seu carrinho</h1>
+@if (cart.items().length === 0) { <p>Seu carrinho está vazio.</p> }
+@for (item of cart.items(); track item.product.id) {
+  <div class="item"><span>{{ item.product.name }} — {{ item.quantity }} unidade(s)</span><button (click)="cart.remove(item.product.id)">Remover</button></div>
+}
+<p><strong>Total: R$ {{ cart.total().toFixed(2) }}</strong></p>
+<a routerLink="/pagamento">Ir para pagamento</a></section>

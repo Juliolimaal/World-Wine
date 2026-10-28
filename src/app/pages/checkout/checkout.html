@@ -1,0 +1,10 @@
+<section class="checkout"><h1>Dados para pagamento</h1>
+<form [formGroup]="form" (ngSubmit)="submit()">
+<label>Nome<input formControlName="name" autocomplete="name"></label>
+<label>E-mail<input formControlName="email" type="email" autocomplete="email"></label>
+<label>Endereço<input formControlName="address" autocomplete="street-address"></label>
+<p>Total do carrinho: R$ {{ cart.total().toFixed(2) }}</p>
+<button type="submit">Continuar</button>
+</form>
+@if (submitted) { <p>Dados preenchidos. Integração de pagamento ainda não configurada.</p> }
+</section>
