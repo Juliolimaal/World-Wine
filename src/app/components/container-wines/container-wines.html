@@ -1,0 +1,78 @@
+@if (!category()) {
+  <section class="relative flex min-h-[570px] h-[calc(100vh-80px)] max-h-[900px] items-center justify-center bg-cover bg-center px-6 text-center text-[#e9d0d3] max-[560px]:min-h-[570px]" [style.background-image]="'linear-gradient(90deg,rgba(15,5,16,.86),rgba(15,5,16,.26)), url(' + imageRoot + '/bg3.jpg)'">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-5">
+      <p class="text-[10px] uppercase tracking-[.23em] text-[#d49ca4]">Adega World Wines</p>
+      <h1 class="my-3 text-[clamp(46px,8vw,88px)] leading-[1.05] font-bold [font-family:'Ibarra_Real_Nova',serif]">Bem-vindos à<br>World <span class="text-[#d49ca4]">Wines</span> Web</h1>
+      <p class="mx-auto mb-2 max-w-[720px] text-[clamp(15px,2vw,20px)] leading-[1.8]">Vinhos que transformam qualquer instante em algo único. Cada garrafa é uma história esperando para ser compartilhada.</p>
+      <a routerLink="/" fragment="colecao" class="inline-flex cursor-pointer items-center justify-center border-0 bg-[#8c3a42] px-[23px] py-[15px] text-[11px] uppercase tracking-[.08em] text-white no-underline">Conheça nossa coleção</a>
+    </div>
+    <span class="absolute right-[clamp(20px,5vw,64px)] bottom-6 text-[11px] uppercase tracking-[.24em] max-[560px]:right-0 max-[560px]:left-0 max-[560px]:text-center max-[560px]:text-[9px]">Elegância · Exclusividade · Experiência</span>
+  </section>
+
+  <section id="colecao" class="mx-auto w-full max-w-[1200px] px-6 py-[92px]">
+    <div class="mb-5 text-center text-[clamp(85px,15vw,150px)] leading-[.9] tracking-[.1em] text-transparent [-webkit-text-stroke:1px_#56070c] [font-family:'Ibarra_Real_Nova',serif]">01</div>
+    <div class="mx-auto mb-12 max-w-[620px] text-center">
+      <h2 class="my-[14px] text-[clamp(36px,5vw,55px)] leading-[1.1] font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">Coleção de vinhos WWW</h2>
+      <p class="text-[18px] leading-[1.8] text-[#6d6064]">Nossa coleção reflete a paixão pela enologia. Entre tintos elegantes e brancos aromáticos, cada garrafa tem sua personalidade. Vinhos do Velho e do Novo Mundo compõem essa seleção para transformar qualquer ocasião em algo memorável.</p>
+    </div>
+    <div class="mx-auto grid max-w-[1100px] gap-8 md:grid-cols-3">
+      <a routerLink="/white" class="group block text-center text-[#310729] no-underline">
+        <div class="flex h-[340px] items-center justify-center overflow-hidden bg-[#f8f5f2]"><img class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" [src]="imageRoot + '/wine-white-copy.png'" alt="Vinhos brancos" loading="lazy"></div>
+        <p class="my-3 text-[48px] text-[#a7aa37] [font-family:'Ibarra_Real_Nova',serif]">White</p>
+      </a>
+      <a routerLink="/red" class="group block text-center text-[#310729] no-underline">
+        <div class="flex h-[340px] items-center justify-center overflow-hidden bg-[#f8f5f2]"><img class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" [src]="imageRoot + '/wine-tinto-copy.png'" alt="Vinhos tintos" loading="lazy"></div>
+        <p class="my-3 text-[48px] text-[#8c3a42] [font-family:'Ibarra_Real_Nova',serif]">Red</p>
+      </a>
+      <a routerLink="/rose" class="group block text-center text-[#310729] no-underline">
+        <div class="flex h-[340px] items-center justify-center overflow-hidden bg-[#f8f5f2]"><img class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" [src]="imageRoot + '/wine-rose-copy.png'" alt="Vinhos rosés" loading="lazy"></div>
+        <p class="my-3 text-[48px] text-[#df587d] [font-family:'Ibarra_Real_Nova',serif]">Rosé</p>
+      </a>
+    </div>
+    @if (catalog.error()) { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">{{ catalog.error() }}</p> }
+    @if (catalog.loading()) { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">Carregando preços e disponibilidade...</p> }
+    <div class="mx-auto mt-[65px] mb-[30px] text-center">
+      <p class="text-[10px] uppercase tracking-[.23em] text-[#8c3a42]">Rótulos selecionados</p>
+      <h3 class="my-2 text-4xl font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">Vinhos disponíveis</h3>
+      <p class="text-[13px] text-[#6d6064]">Consulte a descrição e o preço de cada rótulo.</p>
+    </div>
+    <div class="grid grid-cols-3 gap-6 max-[850px]:grid-cols-2 max-[560px]:grid-cols-1">
+      @for (wine of wines(); track wine.id) { <app-wine-card [wine]="wine" /> }
+      @empty { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">Não há vinhos cadastrados nesta categoria.</p> }
+    </div>
+  </section>
+
+  <section class="grid grid-cols-2 items-center gap-12 bg-[#f3edeb] px-[max(24px,calc((100vw-1100px)/2))] py-[72px] max-[850px]:grid-cols-1">
+    <div><p class="text-[10px] uppercase tracking-[.23em] text-[#8c3a42]">02 · Sofisticação</p><h2 class="my-[14px] text-[clamp(36px,5vw,55px)] leading-tight font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">Sofisticação em cada taça</h2><p class="leading-[1.9] text-[#6d6064]">A sofisticação do vinho vai além do sabor, envolvendo uma harmonia entre aromas, textura e final. Cada vinhedo traz uma riqueza sensorial que reflete o terroir e o cuidado na vinificação. Assim, o vinho se torna uma experiência que reúne história, cultura e paixão.</p><a routerLink="/" fragment="colecao" class="mt-4 inline-block text-[#8c3a42] underline underline-offset-4">• Veja todas as coleções</a></div>
+    <img class="max-h-[400px] w-full object-cover" [src]="imageRoot + '/sec02.jpg'" alt="Sofisticação em cada taça" loading="lazy">
+  </section>
+
+  <section class="bg-[#fdfbf7] bg-cover bg-center bg-fixed px-6 py-[90px] text-center" [style.background-image]="'url(' + imageRoot + '/bg-quality.jpg)'">
+    <div class="mb-5 text-center text-[clamp(85px,15vw,150px)] leading-[.9] tracking-[.1em] text-transparent [-webkit-text-stroke:1px_#56070c] [font-family:'Ibarra_Real_Nova',serif]">03</div>
+    <p class="text-[10px] uppercase tracking-[.23em] text-[#310729]">Nosso cuidado</p><h2 class="my-[14px] text-[clamp(36px,5vw,55px)] font-medium tracking-[.18em] text-[#56070c] [font-family:'Ibarra_Real_Nova',serif]">Qualidade</h2>
+    <p class="mx-auto max-w-[700px] text-[18px] leading-[1.7] text-[#310729]">Na WWW, a qualidade é nosso compromisso, do plantio à venda. Vinhos selecionados para paladares exigentes.</p>
+    <div class="mx-auto mt-[42px] grid max-w-[1100px] grid-cols-4 gap-5 max-[850px]:grid-cols-2 max-[560px]:grid-cols-2">
+      <article class="bg-[#0f0510] px-5 py-7 text-white max-[560px]:px-3 max-[560px]:py-5"><img class="mx-auto mb-[18px] size-[76px] object-contain" [src]="imageRoot + '/plantio.png'" alt="Plantio"><h3 class="text-2xl [font-family:'Ibarra_Real_Nova',serif]">Plantio</h3><p class="text-xs leading-[1.7] text-[#d9cdd5]">Solo, clima, cuidado, poda e paciência para começar uma boa safra.</p></article>
+      <article class="bg-[#0f0510] px-5 py-7 text-white max-[560px]:px-3 max-[560px]:py-5"><img class="mx-auto mb-[18px] size-[76px] object-contain" [src]="imageRoot + '/colheita.png'" alt="Colheita"><h3 class="text-2xl [font-family:'Ibarra_Real_Nova',serif]">Colheita</h3><p class="text-xs leading-[1.7] text-[#d9cdd5]">Cada uva colhida conta uma história de tradição, paixão e tempo.</p></article>
+      <article class="bg-[#0f0510] px-5 py-7 text-white max-[560px]:px-3 max-[560px]:py-5"><img class="mx-auto mb-[18px] size-[76px] object-contain" [src]="imageRoot + '/esmagamento.png'" alt="Produção"><h3 class="text-2xl [font-family:'Ibarra_Real_Nova',serif]">Produção</h3><p class="text-xs leading-[1.7] text-[#d9cdd5]">Da uva ao vinho, arte e tradição moldam cada preciosa gota.</p></article>
+      <article class="bg-[#0f0510] px-5 py-7 text-white max-[560px]:px-3 max-[560px]:py-5"><img class="mx-auto mb-[18px] size-[76px] object-contain" [src]="imageRoot + '/compras.png'" alt="Venda"><h3 class="text-2xl [font-family:'Ibarra_Real_Nova',serif]">Venda</h3><p class="text-xs leading-[1.7] text-[#d9cdd5]">Cada garrafa leva consigo sabor, história e paixão pelo vinho.</p></article>
+    </div>
+  </section>
+
+  <section id="saibamais" class="grid grid-cols-2 items-center justify-center gap-[70px] bg-white px-6 py-20 max-[850px]:mx-auto max-[850px]:max-w-[650px] max-[850px]:grid-cols-1 max-[850px]:gap-[30px]">
+    <div><div class="mb-5 text-center text-[clamp(85px,15vw,150px)] leading-[.9] tracking-[.1em] text-transparent [-webkit-text-stroke:1px_#56070c] [font-family:'Ibarra_Real_Nova',serif]">04</div><p class="text-[10px] uppercase tracking-[.23em] text-[#8c3a42]">Nossa história</p><h2 class="my-[14px] text-[clamp(36px,5vw,55px)] leading-tight font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">WWW é vinho.<br>É Brasil. É o mundo.</h2><h3 class="mt-7 mb-2 text-4xl font-medium text-[#8c3a42] [font-family:'Ibarra_Real_Nova',serif]">Desde 1991</h3><p class="max-w-[650px] leading-[1.85] text-[#6d6064]">Félix, um gato sofisticado, sonhava em abrir sua própria adega e fundou a World Wines Web, um espaço para quem gosta de descobrir novos sabores.</p><p class="max-w-[650px] leading-[1.85] text-[#6d6064]">Caminhando entre as prateleiras, ele recomenda safras especiais e mostra que um gato pode ser um verdadeiro sommelier. 🍷🐱</p></div>
+    <div class="flex flex-col items-center gap-[25px]"><img class="max-h-[360px] w-full max-w-[520px] object-cover" [src]="imageRoot + '/sec04.jpg'" alt="História da World Wines" loading="lazy"><img class="size-[300px] rounded-lg object-cover shadow-[0_12px_30px_#31072922]" [src]="imageRoot + '/cat.jpeg'" alt="Félix, o sommelier da World Wines" loading="lazy"></div>
+  </section>
+} @else {
+  <section class="mx-auto min-h-[80vh] w-full max-w-7xl px-6 pt-20 pb-12">
+    <p class="text-center text-[10px] uppercase tracking-[.2em] text-[#8c3a42]">World Wines · Coleção</p>
+    <h1 class="my-[14px] text-center text-[clamp(36px,5vw,55px)] font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">{{ collectionTitle() }}</h1>
+    <p class="mx-auto mb-[42px] text-center text-[#6d6064]">Rótulos selecionados para descobrir novos aromas e sabores.</p>
+    @if (catalog.error()) { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">{{ catalog.error() }}</p> }
+    @if (catalog.loading()) { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">Carregando preços e disponibilidade...</p> }
+    <div class="grid grid-cols-3 gap-6 max-[850px]:grid-cols-2 max-[560px]:grid-cols-1">
+      @for (wine of wines(); track wine.id) { <app-wine-card [wine]="wine" /> }
+      @empty { <p class="my-[18px] text-center text-[13px] text-[#8c3a42]">Ainda não há vinhos cadastrados nesta categoria.</p> }
+    </div>
+  </section>
+}
