@@ -1,0 +1,18 @@
+@if (wine(); as item) {
+  <section class="mx-auto min-h-[70vh] w-full max-w-[1180px] px-6 pt-[55px] pb-[100px]">
+    <a routerLink="/" class="text-[13px] text-[#8c3a42] no-underline">← Voltar à coleção</a>
+    <div class="grid grid-cols-2 items-center gap-[70px] pt-[35px] max-[760px]:grid-cols-1 max-[760px]:gap-[30px]">
+      <div class="grid min-h-[520px] place-items-center bg-[#f6f1ee] p-[34px] max-[760px]:min-h-[350px]"><img class="h-[450px] w-full object-contain max-[760px]:h-[320px]" [src]="item.image" [alt]="item.name"></div>
+      <div>
+        <p class="text-[10px] uppercase tracking-[.2em] text-[#8c3a42]">{{ item.region }} · World Wines</p>
+        <h1 class="my-[14px] text-[clamp(40px,6vw,67px)] leading-[1.05] font-medium text-[#310729] [font-family:'Ibarra_Real_Nova',serif]">{{ item.name }}</h1>
+        <h2 class="text-lg font-normal text-[#8c3a42] [font-family:'Lexend_Exa',sans-serif]">{{ item.subtitle }}</h2>
+        <p class="my-6 leading-[1.9] text-[#71636a]">{{ item.description }}</p>
+        <p class="mb-[22px] text-2xl font-medium text-[#310729] [font-family:'Lexend_Exa',sans-serif]">R$ {{ item.price | number:'1.2-2':'pt-BR' }}</p>
+        <button class="inline-flex cursor-pointer items-center justify-center border-0 bg-[#8c3a42] px-7 py-[14px] text-xs uppercase tracking-[.08em] text-white [font-family:'Lexend_Exa',sans-serif]" type="button" (click)="cart.add(item)">Adicionar ao carrinho</button>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="min-h-[70vh] px-6 py-12 text-[#75676c]"><h1>Esse vinho não está no catálogo.</h1><a routerLink="/">Voltar à loja</a></section>
+}
