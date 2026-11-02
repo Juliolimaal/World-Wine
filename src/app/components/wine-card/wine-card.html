@@ -1,0 +1,17 @@
+@if (wine; as item) {
+  <article class="group min-w-0 border border-[#eadfe0] bg-white text-[#310729] shadow-[0_12px_30px_#3107290c] transition duration-300 hover:-translate-y-1">
+    <a [routerLink]="['/vinhos', item.id]" class="flex h-[300px] items-center justify-center overflow-hidden bg-[#fbf9f7] p-[22px]">
+      <img class="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.045]" [src]="item.image || imageRoot + '/image-wine-red-alesia.png'" [alt]="item.name || 'Vinho World Wines'" loading="lazy">
+    </a>
+    <div class="flex flex-col gap-3 px-[22px] pt-5 pb-[22px]">
+      <p class="text-[9px] uppercase tracking-[.16em] text-[#8c3a42]">{{ item.region || 'Seleção World Wines' }} · {{ item.category === 'red' ? 'Tinto' : item.category === 'white' ? 'Branco' : 'Rosé' }}</p>
+      <a [routerLink]="['/vinhos', item.id]" class="text-[25px] font-medium text-[#310729] no-underline [font-family:'Ibarra_Real_Nova',serif]">{{ item.name || 'Vinho selecionado' }}</a>
+      <p class="my-1 min-h-[30px] text-xs text-[#777]">{{ item.subtitle || 'Uma seleção da World Wines' }}</p>
+      <p class="line-clamp-3 min-h-14 overflow-hidden text-[11px] leading-[1.7] text-[#6d6064]">{{ item.description }}</p>
+      <div class="flex items-center justify-between gap-3 text-[#8c3a42]">
+        <strong class="text-[18px] font-medium [font-family:'Lexend_Exa',sans-serif]">Valor: R$ {{ item.price | number:'1.2-2':'pt-BR' }}</strong>
+        <button class="size-[42px] cursor-pointer border-0 bg-[#8c3a42] text-white" type="button" (click)="cart.add(item)" aria-label="Adicionar ao carrinho"><span class="material-symbols-outlined">shopping_bag</span></button>
+      </div>
+    </div>
+  </article>
+}
