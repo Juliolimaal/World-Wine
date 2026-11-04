@@ -1,0 +1,4 @@
+<button class="relative inline-flex cursor-pointer items-center gap-2 border-0 bg-transparent p-2 text-[#e9d0d3]" type="button" aria-label="Abrir carrinho" (click)="cart.isOpen.set(true)">
+  <span class="material-symbols-outlined text-[26px]" aria-hidden="true">shopping_cart</span>
+  <span class="grid size-[22px] min-w-[22px] place-items-center rounded-full bg-[#8c3a42] text-[11px] text-white">{{ cart.count() }}</span>
+</button>

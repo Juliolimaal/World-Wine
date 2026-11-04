@@ -1,0 +1,68 @@
+@if (paymentMode) {
+  <section class="mx-auto min-h-[75vh] w-full max-w-6xl px-6 py-12">
+    <a routerLink="/carrinho" class="text-[13px] text-[#8c3a42] no-underline">← Voltar ao carrinho</a>
+    @if (completed()) {
+      <div class="py-[60px] text-center"><h1 class="m-0 text-[42px] font-medium [font-family:'Ibarra_Real_Nova',serif]">Pedido de demonstração concluído</h1><p class="text-[#6d6064]">Nenhum pagamento foi enviado ou cobrado.</p><a routerLink="/" class="mt-4 inline-block bg-[#8c3a42] px-5 py-[13px] text-white no-underline">Voltar à loja</a></div>
+    } @else {
+      <div class="grid items-start gap-10 py-[34px] lg:grid-cols-2">
+        <div class="mx-auto flex min-h-[220px] w-full max-w-[380px] flex-col justify-between rounded-2xl bg-[linear-gradient(135deg,#310729,#56070c)] p-[26px] text-white shadow-[0_20px_45px_#31072925]" [style.background]="brand() === 'Visa' ? 'linear-gradient(110deg,#1a1f71,#2b33b5)' : brand() === 'Mastercard' ? 'linear-gradient(110deg,#eb001b,#f79e1b)' : brand() === 'Amex' ? 'linear-gradient(110deg,#2f7e98,#6fcfeb)' : brand() === 'Elo' ? 'linear-gradient(110deg,#111,#555)' : 'linear-gradient(135deg,#310729,#56070c)'">
+          <div class="flex items-center justify-between gap-4 text-[11px] uppercase tracking-[.1em]"><span class="h-8 w-11 rounded-md border border-[#f4d477] bg-[linear-gradient(90deg,transparent_47%,#f4d477_48%,#f4d477_52%,transparent_53%),linear-gradient(0deg,transparent_47%,#f4d477_48%,#f4d477_52%,transparent_53%)]"></span><span>{{ brand() }}</span></div>
+          <div class="text-xl tracking-[.12em]">{{ form.controls.cardNumber.value || '•••• •••• •••• ••••' }}</div>
+          <div class="flex items-center justify-between gap-4 text-[11px] uppercase tracking-[.1em]"><span>{{ form.controls.holder.value || 'SEU NOME AQUI' }}</span><span>{{ form.controls.expiry.value || 'MM/AA' }}</span></div>
+        </div>
+        <form class="flex flex-col gap-4 border border-[#eadfe0] bg-white p-7" [formGroup]="form" (ngSubmit)="submitPayment()">
+          <p class="text-[10px] uppercase tracking-[.2em] text-[#8c3a42]">Finalização de demonstração</p><h1 class="m-0 text-[42px] font-medium [font-family:'Ibarra_Real_Nova',serif]">Pagamento</h1>
+          <p class="flex justify-between text-sm">Total do carrinho <strong>R$ {{ cart.total() | number:'1.2-2':'pt-BR' }}</strong></p>
+          <div class="bg-[#f6efed] p-3 text-[11px] leading-relaxed text-[#6d6064]">Protótipo acadêmico: use dados fictícios. Nenhuma cobrança acontece e os campos não são salvos.</div>
+          <label class="flex flex-col gap-[7px] text-xs text-[#6d6064]">Número do cartão<input class="w-full border border-[#ddd1d5] p-3 text-[#310729]" formControlName="cardNumber" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" (input)="updateBrand($event)"></label>
+          <label class="flex flex-col gap-[7px] text-xs text-[#6d6064]">Nome do titular<input class="w-full border border-[#ddd1d5] p-3 text-[#310729]" formControlName="holder" placeholder="Como aparece no cartão"></label>
+          <div class="grid grid-cols-2 gap-4"><label class="flex flex-col gap-[7px] text-xs text-[#6d6064]">Validade<input class="w-full border border-[#ddd1d5] p-3 text-[#310729]" formControlName="expiry" maxlength="5" placeholder="MM/AA"></label><label class="flex flex-col gap-[7px] text-xs text-[#6d6064]">Código de segurança<input class="w-full border border-[#ddd1d5] p-3 text-[#310729]" formControlName="cvc" inputmode="numeric" maxlength="4" placeholder="123"></label></div>
+          <button type="submit" class="cursor-pointer border-0 bg-[#8c3a42] px-[22px] py-[13px] text-white disabled:opacity-50" [disabled]="cart.count() === 0">Simular pedido</button>
+        </form>
+      </div>
+    }
+  </section>
+} @else if (pageMode) {
+  <section class="mx-auto min-h-[70vh] w-full max-w-5xl px-6 pt-[65px] pb-[100px]">
+    <p class="text-[10px] uppercase tracking-[.2em] text-[#8c3a42]">World Wines · Sua seleção</p>
+    <h1 class="mt-[14px] mb-[34px] text-[clamp(45px,7vw,70px)] font-medium [font-family:'Ibarra_Real_Nova',serif]">Seu carrinho</h1>
+    @if (cart.items().length) {
+      <div class="flex flex-col gap-4">
+        @for (item of cart.items(); track item.id) {
+          <article class="grid grid-cols-[74px_1fr_65px_130px_82px] items-center gap-5 border-b border-[#eadfe0] py-[17px] max-[650px]:grid-cols-[55px_1fr_auto] max-[650px]:gap-3">
+            <img class="h-[78px] w-[74px] bg-[#f7f3f1] object-contain max-[650px]:w-[55px]" [src]="item.image" [alt]="item.name">
+            <div><h2 class="m-0 text-[22px] [font-family:'Ibarra_Real_Nova',serif]">{{ item.name }}</h2><p class="text-[11px] text-[#786d72]">{{ item.region }}</p></div>
+            <span class="max-[650px]:hidden">{{ item.quantity }} un.</span>
+            <strong class="max-[650px]:col-start-2">R$ {{ item.price * item.quantity | number:'1.2-2':'pt-BR' }}</strong>
+            <button class="cursor-pointer border-0 bg-transparent text-[11px] text-[#8c3a42] max-[650px]:col-start-3 max-[650px]:row-span-2" type="button" (click)="cart.remove(item.id)">Remover</button>
+          </article>
+        }
+      </div>
+      <div class="mt-7 ml-auto w-full max-w-[420px] text-right">
+        <button class="cursor-pointer border-0 bg-transparent text-[11px] text-[#8c3a42]" type="button" (click)="cart.clear()">Limpar carrinho</button>
+        <p class="flex items-center justify-between">Total <strong class="text-2xl">R$ {{ cart.total() | number:'1.2-2':'pt-BR' }}</strong></p>
+        <a routerLink="/pagamento" class="mt-2 block bg-[#8c3a42] p-[13px] text-center text-[11px] uppercase tracking-[.1em] text-white no-underline">Continuar para pagamento</a>
+      </div>
+    } @else {
+      <div class="py-[50px] text-[#766a6d]"><p>Seu carrinho está vazio.</p><a routerLink="/" class="mt-2 block bg-[#8c3a42] p-[13px] text-center text-[11px] uppercase tracking-[.1em] text-white no-underline">Explorar os vinhos</a></div>
+    }
+  </section>
+} @else if (cart.isOpen()) {
+  <button class="fixed inset-0 z-[60] border-0 bg-[#09040a99]" type="button" aria-label="Fechar carrinho" (click)="cart.isOpen.set(false)"></button>
+  <aside class="fixed top-0 right-0 bottom-0 z-[70] flex h-full w-[min(420px,100vw)] flex-col bg-[#fdfbf7] p-[26px] text-[#310729] shadow-[-15px_0_45px_#0002]" aria-label="Seu carrinho">
+    <div class="flex items-center justify-between border-b border-[#eadfe0] pb-[17px]"><h2 class="m-0 text-[30px] [font-family:'Ibarra_Real_Nova',serif]">Seu Carrinho</h2><button class="cursor-pointer border-0 bg-transparent text-[30px] text-[#8c3a42]" type="button" (click)="cart.isOpen.set(false)" aria-label="Fechar">×</button></div>
+    <div class="flex flex-1 flex-col gap-4 overflow-y-auto pt-3">
+      @for (item of cart.items(); track item.id) {
+        <article class="grid grid-cols-[58px_1fr_24px] items-center gap-[13px] border-b border-[#eee5e5] py-[14px]">
+          <img class="h-[68px] w-[58px] bg-[#f4efed] object-contain" [src]="item.image" [alt]="item.name">
+          <div><h3 class="mb-2 text-lg [font-family:'Ibarra_Real_Nova',serif]">{{ item.name }}</h3><span class="text-[10px] text-[#8c3a42]">{{ item.quantity }} × R$ {{ item.price | number:'1.2-2':'pt-BR' }}</span></div>
+          <button class="cursor-pointer border-0 bg-transparent text-[22px] text-[#8c3a42]" type="button" (click)="cart.remove(item.id)" aria-label="Remover do carrinho">×</button>
+        </article>
+      } @empty { <p class="my-[60px] text-center text-[#766a6d]">Seu carrinho está vazio.</p> }
+    </div>
+    <div class="border-t border-[#eadfe0] pt-5">
+      <p class="flex justify-between text-sm"><span>Total</span><strong class="text-xl">R$ {{ cart.total() | number:'1.2-2':'pt-BR' }}</strong></p>
+      <a routerLink="/carrinho" (click)="cart.isOpen.set(false)" [class.opacity-45]="cart.count() === 0" [class.pointer-events-none]="cart.count() === 0" class="mt-2 block bg-[#8c3a42] p-[13px] text-center text-[11px] uppercase tracking-[.1em] text-white no-underline">Ver carrinho</a>
+    </div>
+  </aside>
+}

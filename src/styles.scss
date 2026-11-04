@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+:root { color-scheme: light; font-family:'Lexend Exa',sans-serif; font-synthesis:none; text-rendering:optimizeLegibility; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:86px; }
+body { margin:0; background:#fdfbf7; color:#310729; }
+button,input,textarea,select { font:inherit; }
+a { color:inherit; }
+.font-lexend { font-family:'Lexend Exa',sans-serif; }
+.font-ibarra { font-family:'Ibarra Real Nova',serif; }
