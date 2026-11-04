@@ -1,0 +1,93 @@
+<section class="mx-auto min-h-[75vh] w-full max-w-[1180px] px-6 pt-12 pb-[100px]">
+  <a routerLink="/" class="text-[13px] text-[#8c3a42] no-underline">← Voltar à loja</a>
+
+  <div class="my-[35px]">
+    <p class="text-[10px] uppercase tracking-[.2em] text-[#8c3a42]">Catálogo World Wines</p>
+    <h1 class="my-3 text-[clamp(40px,6vw,62px)] font-medium text-[#310729]">Gerenciar vinhos</h1>
+    <p class="text-[13px] text-[#766a6d]">Cadastre ou remova rótulos do catálogo.</p>
+  </div>
+
+  <div class="grid grid-cols-2 items-start gap-[35px] max-[720px]:grid-cols-1">
+    <form
+      class="flex flex-col gap-4 border border-[#eadfe0] bg-white p-7"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+    >
+      <h2 class="mb-3 text-[26px]">Novo vinho</h2>
+
+      <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+        Nome
+        <input type="text" formControlName="name" placeholder="Nome do rótulo">
+      </label>
+
+      <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+        Subtítulo
+        <input type="text" formControlName="subtitle" placeholder="Uma frase sobre o vinho">
+      </label>
+
+      <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+        Descrição
+        <textarea rows="4" formControlName="description" placeholder="Descreva o rótulo"></textarea>
+      </label>
+
+      <div class="grid grid-cols-2 gap-4">
+        <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+          Preço (R$)
+          <input type="number" min="0.01" step="0.01" formControlName="price">
+        </label>
+
+        <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+          Categoria
+          <select formControlName="category">
+            <option value="red">Tinto</option>
+            <option value="white">Branco</option>
+            <option value="rose">Rosé</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+        Região
+        <input type="text" formControlName="region" placeholder="País ou região">
+      </label>
+
+      <label class="flex flex-col gap-2 text-[11px] uppercase tracking-[.08em]">
+        Imagem (URL pública do Supabase)
+        <input
+          type="url"
+          formControlName="image"
+          placeholder="https://wrlwnjbrulmivjllqufy.supabase.co/storage/v1/object/public/imagens-projeto/image-wine-red-alesia.png"
+        >
+      </label>
+
+      @if (message()) {
+        <p class="text-xs text-[#8c3a42]">{{ message() }}</p>
+      }
+
+      <button type="submit" [disabled]="saving()">
+        {{ saving() ? 'Salvando...' : 'Cadastrar vinho' }}
+      </button>
+    </form>
+
+    <div class="flex flex-col gap-4 border border-[#eadfe0] bg-white p-7">
+      <h2 class="mb-3 text-[26px]">Rótulos cadastrados</h2>
+
+      @for (wine of catalog.wines(); track wine.id) {
+        <article class="flex items-center justify-between border-t border-[#eee5e5] py-4">
+          <div>
+            <strong class="block">{{ wine.name }}</strong>
+            <small>{{ wine.category }} · R$ {{ wine.price | number:'1.2-2':'pt-BR' }}</small>
+          </div>
+
+          <button
+            type="button"
+            (click)="remove(wine.id)"
+            [attr.aria-label]="'Remover ' + wine.name"
+          >
+            Remover
+          </button>
+        </article>
+      }
+    </div>
+  </div>
+</section>
