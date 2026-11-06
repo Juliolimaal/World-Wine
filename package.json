@@ -18,14 +18,16 @@
     "@angular/platform-browser": "^21.2.0",
     "@angular/router": "^21.2.0",
     "rxjs": "~7.8.0",
-    "tailwindcss": "^4.3.4",
+    "tailwindcss": "^4.3.5",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^21.2.26",
     "@angular/cli": "^21.2.26",
     "@angular/compiler-cli": "^21.2.0",
+    "@tailwindcss/postcss": "^4.3.5",
     "jsdom": "^28.0.0",
+    "postcss": "^8.5.32",
     "prettier": "^3.8.1",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
