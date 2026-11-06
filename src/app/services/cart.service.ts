@@ -1,10 +1,11 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { computed, signal } from '@angular/core';
+import { Service } from '../services/service';
 import { CartItem } from '../models/cart-item';
 import { Wine } from '../models/wine';
 
 const STORAGE_KEY = 'jk_cart';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class CartService {
   readonly items = signal<CartItem[]>(this.readCart());
   readonly isOpen = signal(false);

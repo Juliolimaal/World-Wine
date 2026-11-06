@@ -7,6 +7,7 @@ import { CartSidebar } from './components/cart-sidebar/cart-sidebar';
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, CartButton, CartSidebar],
   templateUrl: './app.html',
+  styleUrl: './app.css',
   host: { class: 'block min-h-screen bg-[#fdfbf7] text-[#310729]' },
 })
 export class App {}
