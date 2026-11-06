@@ -1,6 +1,5 @@
-import { inject, signal } from '@angular/core';
+import { Service, inject, signal } from '@angular/core';
 import { Observable, catchError, finalize, map, of } from 'rxjs';
-import { Service } from './service';
 import { Wine, WineCategory } from '../models/wine';
 import { DatabaseService } from './database';
 import { environment } from '../../environments/environment';

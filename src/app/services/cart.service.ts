@@ -1,5 +1,4 @@
-import { computed, signal } from '@angular/core';
-import { Service } from '../services/service';
+import { Service, computed, signal } from '@angular/core';
 import { CartItem } from '../models/cart-item';
 import { Wine } from '../models/wine';
 

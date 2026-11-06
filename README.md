@@ -1,73 +1,29 @@
-# World Wine
+# World Wines Web — Angular 22
 
-Projeto da disciplina de Programação Web desenvolvido em Angular 21+.
+Migração acadêmica da loja World Wines Web para Angular 22. A organização dos componentes segue a estrutura pedida: `container-wines`, `wine-card`, `wine-detail`, `wine-form`, `cart-button` e `cart-sidebar`. Cada pasta contém arquivos `.ts`, `.html`, `.css` e `.spec.ts`.
 
-Esta etapa organiza somente as pastas e a divisão das tarefas. Nenhum componente visual, página, serviço ou integração foi implementado nesta reorganização.
+## Executar
 
-## Estrutura de trabalho
+1. Instale Node.js 22 ou superior.
+2. Nesta pasta, rode `npm install`.
+3. Inicie o projeto com `npm start` e abra o endereço local exibido pelo Angular.
+4. Para executar os testes de componentes, use `npm test`.
 
-```text
-src/
-  app/
-    components/
-      header/
-      footer/
-      hero/
-      product-card/
-      cart-sidebar/
-    pages/
-      home/
-      catalog/
-      cart/
-      checkout/
-      admin/
-    services/
-    models/
-    app.ts
-    app.html
-    app.scss
-    app.config.ts
-    app.routes.ts
-  main.ts
-  styles.scss
-public/
-  images/
-```
+As imagens do projeto estão em `public/images` e são servidas localmente. O Tailwind CSS 4 está configurado com PostCSS e é utilizado diretamente nos templates. Os estados da vitrine e do carrinho usam Signals, e os formulários usam Reactive Forms.
 
-As pastas novas contêm somente arquivos `.gitkeep`, para que o Git consiga mantê-las vazias.
+## Supabase
 
-## Divisão para três integrantes
+Edite `src/environments/environment.ts` e informe a URL do projeto e a chave pública (`publishable` ou `anon`) do Supabase. Nunca use a `service_role` no navegador.
 
-### Pessoa 1 — Interface e navegação
-- Implementar Header, Footer, Hero e ProductCard.
-- Organizar as páginas Home e Catálogo.
-- Configurar rotas e templates das páginas.
-- Manter o visual do projeto original quando a implementação começar.
+O serviço consulta a tabela `products` usando `GET`, cadastra com `POST` e remove com `DELETE` por meio do `HttpClient`, seguindo o padrão do serviço `database.ts` do exemplo Angular do professor. A tabela deve ter campos compatíveis com `id`, `name`, `price`, `category`, `image`, `subtitle`, `description` e `region`. O POST e o DELETE precisam de políticas RLS apropriadas.
 
-**Requisitos principais:** Components, Templates e Rotas.
+Sem URL e chave do Supabase, o projeto carrega cinco vinhos de demonstração, com imagens locais e preços. Com o Supabase configurado, os registros do banco atualizam os rótulos correspondentes e produtos novos são acrescentados ao catálogo; os vinhos de demonstração continuam disponíveis para a apresentação. Cadastro e remoção funcionam localmente nessa demonstração, sem persistência no banco.
 
-### Pessoa 2 — Carrinho e checkout
-- Implementar CartSidebar, página Carrinho e página Checkout.
-- Usar Signals para o estado do carrinho.
-- Criar um serviço para gerenciar itens, quantidades e total.
-- Implementar os formulários do checkout.
+## Rotas
 
-**Requisitos principais:** Signals, Services e Formulários.
-
-### Pessoa 3 — Supabase e operações HTTP
-- Criar os modelos dos dados em `models/`.
-- Criar os serviços de acesso a dados em `services/`.
-- Integrar Supabase usando HttpClient.
-- Implementar GET, POST e DELETE.
-- Organizar a página Admin para demonstrar as operações, com acesso protegido.
-
-**Requisitos principais:** Services e HttpClient (GET, POST e DELETE) com Supabase.
-
-## Execução local
-
-```bash
-npm install
-npm start
-```
-
-A versão inicial do Angular foi preservada. As funcionalidades descritas acima são tarefas futuras.
+- `/`: vitrine
+- `/red`, `/white` e `/rose`: vitrine filtrada por categoria
+- `/vinhos/:id`: detalhes do vinho
+- `/carrinho`: carrinho
+- `/pagamento`: formulário de demonstração sem cobrança
+- `/admin/vinhos/novo`: cadastro e remoção do catálogo
